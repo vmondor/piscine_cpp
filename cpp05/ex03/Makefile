@@ -1,0 +1,46 @@
+NAME        = intern
+
+CXX         = c++
+CPPFLAGS    = -Wall -Wextra -Werror -std=c++98
+HEADERS		=	Bureaucrat.hpp				\
+				AForm.hpp					\
+				ShrubberyCreationForm.hpp	\
+				RobotomyRequestForm.hpp		\
+				PresidentialPardonForm.hpp	\
+				Intern.hpp					\
+
+OBJ_PATH	= obj/
+
+SRC_FILES   =	main.cpp					\
+				Bureaucrat.cpp				\
+				AForm.cpp					\
+				ShrubberyCreationForm.cpp	\
+				RobotomyRequestForm.cpp		\
+				PresidentialPardonForm.cpp	\
+				Intern.cpp					\
+
+OBJ_FILES   = $(SRC_FILES:.cpp=.o)
+OBJS		= $(addprefix $(OBJ_PATH), $(OBJ_FILES))
+
+all: $(OBJ_PATH) $(NAME)
+
+$(OBJ_PATH)%.o: %.cpp $(HEADERS)
+	$(CXX) $(CPPFLAGS) -c $< -o $@
+
+$(OBJ_PATH):
+	mkdir $(OBJ_PATH)
+
+$(NAME): $(OBJS)
+	$(CXX) $(CPPFLAGS) $(OBJS) -o $(NAME)
+
+clean:
+	rm -rf $(OBJ_PATH)
+
+fclean: clean
+	rm -f ${NAME}
+
+re:
+	make fclean
+	make all
+
+.PHONY: all clean fclean re
